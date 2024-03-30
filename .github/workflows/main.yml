@@ -1,7 +1,8 @@
-name: Deploy ZIP
+name: Unzip and commit
 
 on:
   push:
+  workflow_dispatch:
 
 jobs:
   build:
@@ -9,13 +10,11 @@ jobs:
     steps:
     - uses: actions/checkout@v3
 
-    - name: Set up Python
-      uses: actions/setup-python@v4
-
     - name: Unzip file
-      run: |
-        python -c "import zipfile; zip_ref = zipfile.ZipFile('path/to/your/file.zip', 'r'); zip_ref.extractall('.'); zip_ref.close()"
-      shell: bash
+      # For Ubuntu or macOS
+      run: unzip 1.zip -d .
+      # For Windows, you can use the following command:
+      # run: Expand-Archive -Path 1.zip -DestinationPath .
 
     - name: Commit and push
       run: |
